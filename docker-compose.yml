@@ -1,9 +1,32 @@
 version: '3.8'
+
 services:
+  db:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: contact_registration
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   app:
     build: .
     container_name: contact_registration
     ports:
-      - "5432:5432"
-    volumes:
-      - .:/usr/src/app
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: user
+      DB_PASSWORD: 1234
+      DB_NAME: contact_registration
+
+volumes:
+  pgdata:
