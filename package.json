@@ -9,5 +9,10 @@
     "body-parser": "^2.2.1",
     "express": "^5.2.1",
     "module-alias": "^2.2.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/server.js",
+    "dev": "ts-node-dev src/server.ts"
   }
 }
